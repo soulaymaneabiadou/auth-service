@@ -1,0 +1,40 @@
+const jwt = require('jsonwebtoken');
+const asyncHandler = require('./async');
+const ErrorResponse = require('../utils/errorResponse');
+const User = require('../models/User');
+
+exports.protect = asyncHandler(async (req, res, next) => {
+  let token;
+
+  if (req.header('x-auth-token')) {
+    token = req.header('x-auth-token');
+  }
+
+  if (!token) {
+    return next();
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.user = await User.findById(decoded.id);
+
+    next();
+  } catch (err) {
+    return next();
+  }
+});
+
+exports.authorize = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorResponse(
+          `${req.user.role} role is not authorized to access this route`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};

@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const dotenv = require('dotenv');
@@ -14,6 +15,8 @@ const app = express();
 app.use(express.json());
 
 app.use(protect);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(
   '/graphql',

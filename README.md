@@ -48,11 +48,11 @@ register(user:{ name: String, email: String, password: String! }): {success: Boo
 
 - Auth Errors
 
-  - [] Fields required: Shound be `400` but gets `500`
+  - [ ] Fields required: Shound be `400` but gets `500`
   - [x] Invalid Field: Shound be `400` and gets it
   - [x] Duplicate Field: Shound be `400` and gets it
-  - [] Invalid Credentials: Shound be `400` but gets `500`
-  - [] Not Authorized: Shound be `401` but gets `500`
+  - [ ] Invalid Credentials: Shound be `400` but gets `500`
+  - [ ] Not Authorized: Shound be `401` but gets `500`
 
 ### Todos:
 
